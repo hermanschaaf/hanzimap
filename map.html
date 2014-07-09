@@ -4,118 +4,18 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <style type="text/css">
-    body {
-        background: #e0e0e0;
-    }
-    .radicals {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
-    .radicals > li {
-        float: left;
-    }
-    .radicals > li a {
-        display: block;
-        text-decoration: none;
-        margin: 3px;
-        width: 24px;
-        padding: 5px 0 3px 0;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        font-size: 18px;
-        font-weight: normal;
-        text-shadow: 0 0 2px rgba(255,255,255,0.85);
-        background-color: #f0f0f0;
-        border-bottom: 5px solid #f0f0f0;
-        color: black;
-        cursor: pointer;
-        padding-bottom: 8px;
-    }
-    .active.stroke1 a {
-        border-color: rgb(193,10,22) !important;
-    }
-    .active.stroke2 a {
-        border-color: rgb(193,10,132) !important;
-    }
-    .active.stroke3 a {
-        border-color: rgb(144,10,193) !important;
-    }
-    .active.stroke4 a {
-        border-color: rgb(22,10,193) !important;
-    }
-    .active.stroke5 a {
-        border-color: rgb(10,108,193) !important;
-    }
-    .active.stroke6 a {
-        border-color: rgb(10,193,157) !important;
-    }
-    .active.stroke7 a {
-        border-color: rgb(10,193,46) !important;
-    }
-    .active.stroke8 a {
-        border-color: rgb(83,193,10) !important;
-    }
-    .active.stroke9 a {
-        border-color: rgb(193,193,10) !important;
-    }
-    .active.stroke10 a {
-        border-color: rgb(193,83,10) !important;
-    }
-    .radicals > li.active a {
-        border-color: rgb(10, 142, 193);
-        font-weight: bold;
-    }
-    .radicals > li a:hover {
-        background-color: #ffffff;
-        border-color: #ffffff;
-    }
-    .radicals > li.active a:hover {
-        background-color: #ffffff;
-        border-color: inherit;
-    }
-
-
-    .characters {
-/*        margin: 0;
-        padding: 0;*/
-        list-style-type: none;
-    }
-    .characters .char {
-        background: white;
-        text-align: center;
-        margin: 20px 0;
-        display: block;
-    }
-    .characters .char .text {
-        font-size: 100px;
-        line-height: 200px;
-    }
-    .characters .char .rads {
-        font-size: 20px;
-
-        display: table;
-        width: 100%;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    .characters .char .rads > li {
-        display: table-cell;
-        border-bottom: 5px solid #f0f0f0;
-    }
-    </style>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.5/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/flip.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-<body ng-app ng-controller="radicalFilter">
+<body ng-app="RadicalApp" ng-controller="radicalFilter">
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2>Radicals</h2>
+            <h2>Radicals <a class="reset" href="" ng-click="reset()">reset</a></h2>
             <ul class="radicals">
-                <li ng-repeat="radical in radicals" ng-click="toggleFilter(radical.ch)" ng-class="{ 'active': filters[radical.ch] == true, 'stroke1': radical.strokes == 1, 'stroke2': radical.strokes == 2, 'stroke3': radical.strokes == 3, 'stroke4': radical.strokes == 4, 'stroke5': radical.strokes == 5, 'stroke6': radical.strokes == 6, 'stroke7': radical.strokes == 7, 'stroke8': radical.strokes == 8, 'stroke9': radical.strokes == 9, 'stroke10': radical.strokes >= 10}">
-                    <a href="#">
+                <li class="rad" ng-repeat="radical in radicals" ng-click="toggleFilter(radical.ch)" ng-class="heatmapClass(radical.ch)">
+                    <a href="" ng-class="radicalClass(radical.ch)">
                         {{radical.ch}}
                     </a>
                 </li>
@@ -124,28 +24,39 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h2>Characters</h2>
             <div class="row characters">
-                <div class="col-sm-3" ng-repeat="character in characters | filter:filterCharacters">
-                    <div class="char">
-                        <span class="text">{{character.ch}}</span>
-                        <ul class="rads">
-                            <li ng-repeat="radical in character.r">{{radical}}</li>
-                        </ul>
+                <div class="col-sm-3 charcol" ng-repeat="character in characters | filter:filterCharacters">
+                    <div class="flip-container" ng-click="flipCard(character.ch)">
+                        <div class="flipper">
+                            <div class="char front">
+                                <!-- front content -->
+                                <span class="text">{{character.ch}}</span>
+                                <ul class="rads">
+                                    <li ng-repeat="radical in character.r">
+                                        <a href="" ng-class="radicalClass(radical)">{{radical}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="char back">
+                                <!-- back content -->
+                                <span class="text">{{character.ch}}</span>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.5/angular.min.js"></script>
 <script type="text/javascript">
 var exports = {};
 </script>
 <script type="text/javascript" src="data/radicalList.js"></script>
 <script type="text/javascript" src="data/characterList.js"></script>
 <script type="text/javascript">
-function radicalFilter($scope){
+
+angular.module('RadicalApp.controllers', []).controller('radicalFilter',function($scope){
     $scope.radicals = exports.radicalList;
     $scope.characters = exports.characterList;
     var filters = {};
@@ -153,6 +64,12 @@ function radicalFilter($scope){
         filters[exports.radicalList[i].ch] = false;
     }
     $scope.filters = filters;
+
+    $scope.reset = function(){
+        for (var i = 0; i < exports.radicalList.length; i++) {
+            filters[exports.radicalList[i].ch] = false;
+        }
+    }
 
     $scope.toggleFilter = function(radical){
         filters[radical] = !filters[radical];
@@ -167,8 +84,62 @@ function radicalFilter($scope){
         return true;
     }
 
-    $scope.radicalClasses = ""; // :puke:
-}
+    $scope.flipCard = function() {
+
+    }
+
+    var radicalMap = {};
+    for (var i = 0; i < $scope.radicals.length; i++) {
+        radicalMap[$scope.radicals[i].ch] = $scope.radicals[i];
+    }
+    $scope.radicalClass = function(ch) {
+        var radical = radicalMap[ch];
+        var d = {'active': filters[ch] == true};
+        for (var i = 1; i <= 10; i++) {
+            d['stroke' + i] = i == 10 ? radical.strokes >= i : radical.strokes == i;
+        }
+        return d;
+    }
+
+    // build character by radical map (rad => characters with that radical)
+    var characterByRadicalMap = {};
+    for (var i = 0; i < $scope.characters.length; i++) {
+        var ch = $scope.characters[i];
+        for (var r = 0; r < ch.r.length; r++) {
+            var rad = ch.r[r];
+            if (!characterByRadicalMap[rad]) {
+                characterByRadicalMap[rad] = [ch];
+            } else {
+                characterByRadicalMap[rad].push(ch);
+            }
+        }
+
+    }
+    $scope.heatmapClass = function(radical) {
+        // calculate how many characters will be unlocked
+        // if we remove this radical from the filtered list
+        var count = 0;
+        outer: for (var i = 0; i < characterByRadicalMap[radical].length || 0; i++) {
+            var ch = characterByRadicalMap[radical][i];
+            for (var r = 0; r < ch.r.length; r++) {
+                if (!($scope.filters[ch.r[r]] == true || ch.r[r] == radical)) {
+                    continue outer;
+                }
+            }
+            count += ch.r[0] != ch.ch ? 1 : 0;
+        }
+        return {
+            'some': count >= 1,
+            'many': count >= 2,
+        }
+    }
+});
+
+angular.module('RadicalApp', [
+  'RadicalApp.controllers'
+]);
+
+
 </script>
 </body>
 </html>

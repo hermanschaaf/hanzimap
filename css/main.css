@@ -1,0 +1,127 @@
+body {
+    background: #d0d0d0;
+}
+.reset {
+    font-size: 16px;
+}
+.radicals {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.radicals > li {
+    float: left;
+}
+.radicals > li a {
+    display: block;
+    text-decoration: none;
+    margin: 3px;
+    width: 24px;
+    padding: 5px 0 3px 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: normal;
+    text-shadow: 0 0 2px rgba(255,255,255,0.85);
+    background-color: #f0f0f0;
+    border-bottom: 5px solid #f0f0f0;
+    color: black;
+    cursor: pointer;
+    padding-bottom: 8px;
+}
+.active.stroke1 {
+    border-color: rgb(193,10,22) !important;
+}
+.active.stroke2 {
+    border-color: rgb(193,10,132) !important;
+}
+.active.stroke3 {
+    border-color: rgb(144,10,193) !important;
+}
+.active.stroke4 {
+    border-color: rgb(22,10,193) !important;
+}
+.active.stroke5 {
+    border-color: rgb(10,108,193) !important;
+}
+.active.stroke6 {
+    border-color: rgb(10,193,157) !important;
+}
+.active.stroke7 {
+    border-color: rgb(10,193,46) !important;
+}
+.active.stroke8 {
+    border-color: rgb(83,193,10) !important;
+}
+.active.stroke9 {
+    border-color: rgb(193,193,10) !important;
+}
+.active.stroke10 {
+    border-color: rgb(193,83,10) !important;
+}
+.radicals > li.active a {
+    border-color: rgb(10, 142, 193);
+    font-weight: bold;
+}
+.radicals > li a:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.radicals > li.active a:hover {
+    background-color: #ffffff;
+    border-color: inherit;
+}
+.radicals .rad a {
+    background: #e0e0e0;
+}
+.radicals .rad.some a {
+    background: #eeeeee;
+}
+.radicals .rad.many a {
+    background: #f5f5f5;
+}
+.characters {
+    list-style-type: none;
+}
+.charcol {
+    height: 253px;
+}
+.characters .char {
+    height: 233px;
+    background: white;
+    text-align: center;
+    margin: 20px 0;
+    display: block;
+    cursor: pointer;
+}
+.characters .char .text {
+    font-size: 100px;
+    line-height: 200px;
+}
+.characters .char .rads {
+    font-size: 20px;
+
+    display: table;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.characters .char .rads > li {
+    display: table-cell;
+}
+.characters .char .rads > li a {
+    color: #000000;
+    display: block;
+    border-bottom: 5px solid #f0f0f0;
+    text-decoration: none;
+}
+
+.characters .char.back .text {
+    font-size: 40px;
+    line-height: 50px;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+}
